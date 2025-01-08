@@ -7,13 +7,15 @@ const PassengerCounter = ()=>{
     const [passengerCount, setPassengerCount] = useState(0)
     const [taxiFunction , setTaxiFunction] = useState(null)
 
-    // creating an instance of the TaxiQueue function 
-    const taxiQueue = TaxiQueue()
+
 
     useEffect(()=>{
+            // creating an instance of the TaxiQueue function 
+    const taxiQueue = TaxiQueue()
         // get the queue length from local storage
         const storedCount = Number(localStorage.getItem('queueLength')) || 0;
 
+        //  
         //set the passenger count using the value from local storage 
         setPassengerCount(storedCount)
        
@@ -27,10 +29,10 @@ const PassengerCounter = ()=>{
         if(taxiFunction){
 
             // add passenger when clicking the join bytton
-           taxiQueue.joinQueue()
+           taxiFunction.joinQueue()
 
            //update counter 
-           const updatedCount = taxiQueue.queueLength()
+           const updatedCount = taxiFunction.queueLength()
 
            setPassengerCount(updatedCount)
 
@@ -44,9 +46,9 @@ const PassengerCounter = ()=>{
         if(taxiFunction){
 
             // remove a passenger when clicking the leave button 
-            taxiQueue.leaveQueue()
+            taxiFunction.leaveQueue()
             // update the counter 
-            const updatedCounter = taxiQueue.queueLength();
+            const updatedCounter = taxiFunction.queueLength();
             setPassengerCount(updatedCounter)
 
             // set to local storage
