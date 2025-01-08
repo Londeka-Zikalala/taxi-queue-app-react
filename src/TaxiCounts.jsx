@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import TaxiQueue from "../taxi-queue";
 import { useEffect, useState } from "react";
 
@@ -18,7 +18,7 @@ const TaxiCounter = ()=>{
         const storedTaxiDepartCount = Number(localStorage.getItem('taxiDepartCount')) || 0;
 
         //  
-        //set the passenger count using the value from local storage 
+        //set the taxi count using the value from local storage 
         setTaxiCount(storedTaxiCount)
         setTaxiDepartCount(storedTaxiDepartCount)
        
@@ -30,7 +30,7 @@ const TaxiCounter = ()=>{
    const handleJoinTaxiQueue= ()=>{
         if(taxiFunction){
 
-            // add passenger when clicking the join bytton
+            // add taxi when clicking the join bytton
            taxiFunction.joinTaxiQueue()
 
            //update counter 
@@ -47,7 +47,7 @@ const TaxiCounter = ()=>{
     const handleTaxiLeaveQueue = ()=>{
         if(taxiFunction){
 
-            // remove a passenger when clicking the leave button 
+            // remove a taxi when clicking the leave button 
             taxiFunction.taxiDepart()
             // update the counter 
             const updatedTaxiCounter = taxiFunction.taxiQueueLength();
