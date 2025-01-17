@@ -1,74 +1,63 @@
-import React, { use } from "react";
-import TaxiQueue from "../taxi-queue";
-import { useEffect, useState } from "react";
+import {React, useState} from "react";
+import { useTaxiQueue } from "../context/TaxiQueueContext";
 
+const PassengerCounter = () => {
+    const {
+        passengerCount,
+        setPassengerCount,
+        taxiFunction,
+    } = useTaxiQueue();
 
-const PassengerCounter = ()=>{
-    const [passengerCount, setPassengerCount] = useState(0)
-    const [taxiFunction , setTaxiFunction] = useState(null)
-
-
-
-    useEffect(()=>{
-            // creating an instance of the TaxiQueue function 
-    const taxiQueue = TaxiQueue()
-        // get the queue length from local storage
-        const storedCount = Number(localStorage.getItem('queueLength')) || 0;
-
-        //  
-        //set the passenger count using the value from local storage 
-        setPassengerCount(storedCount)
-       
-        // load the instance on page reloadd
-        setTaxiFunction(taxiQueue)
-
-    }, [])
+    //   error messages 
+    const [error, setError] = useState("");
 
     // handling the join queue button
-   const handleJoinQueue= ()=>{
-        if(taxiFunction){
+    const handleJoinQueue = () => {
+        if (taxiFunction) {
 
             // add passenger when clicking the join bytton
-           taxiFunction.joinQueue()
+            taxiFunction.joinQueue()
 
-           //update counter 
-           const updatedCount = taxiFunction.queueLength()
-
-           setPassengerCount(updatedCount)
-
-        //    set to local storage
-
-        localStorage.setItem('queueLength', updatedCount)
+            //update counter 
+            const increacedQueueLength = taxiFunction.queueLength()
+            setPassengerCount(increacedQueueLength)
+            localStorage.setItem('passengerQueueLength', increacedQueueLength.toString())
+            
         }
     }
 
-    const handleLeaveQueue = ()=>{
-        if(taxiFunction){
-
-            // remove a passenger when clicking the leave button 
-            taxiFunction.leaveQueue()
-            // update the counter 
-            const updatedCounter = taxiFunction.queueLength();
-            setPassengerCount(updatedCounter)
-
-            // set to local storage
-            localStorage.setItem('queueLength', updatedCounter)
+    const handleLeaveQueue = () => {
+        if (taxiFunction) {
+            const errorMsg = taxiFunction.leaveQueue();
+            if (errorMsg) {
+                setError(errorMsg);
+                setTimeout(() => {
+                    setError("");
+                }, 2000);
+            }
+            else {
+                // update the counter 
+                const updatedQueueLength = taxiFunction.queueLength()
+                setPassengerCount(updatedQueueLength)
+                localStorage.setItem('passengerQueueLength', updatedQueueLength.toString())
+            }
         }
     }
-
-    return(
+    return (
         <>
-        <div className="section" >
-			<h2>Passengers</h2>
-			<img src="queue.png" alt="" width="100"></img>
-			<img src="queue.png" alt="" width="100"></img>
-			<img src="queue.png" alt="" width="100"></img>
-			<span className="passenger_queue_count count">{passengerCount}</span>
-			<button className="join_queue" onClick={handleJoinQueue}>Join</button>
-			<button className="leave_queue" onClick={handleLeaveQueue}>Leave</button>
-	
-		</div>
+        
+            <div className="section" >
+            {error && <h3 className="error-message">{error}</h3>}
+                <h2>Passengers</h2>
+                <img src="queue.png" alt="" width="100"></img>
+                <img src="queue.png" alt="" width="100"></img>
+                <img src="queue.png" alt="" width="100"></img>
+                <span className="passenger_queue_count count">{passengerCount}</span>
+                <button className="join_queue" onClick={handleJoinQueue}>Join</button>
+                <button className="leave_queue" onClick={handleLeaveQueue}>Leave</button>
 
+            </div>
+            
         </>
     )
 

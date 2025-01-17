@@ -3,6 +3,7 @@ function TaxiQueue() {
 // initialising global counters for the taxi and passenger queues
 let taxiCounter= 0;
 let passengerCounter = 0; 
+let departedCounter = 0
 
 // passenger joins queue
 	function joinQueue() {
@@ -15,14 +16,17 @@ let passengerCounter = 0;
 		if(passengerCounter > 0){
 			passengerCounter--
 
+		}else{
+			return "There are no passengers in the queue."
 		}
 	}
 
 	// taxi joining the queue
 	function joinTaxiQueue() {
 		// increment taxi counter
-		taxiCounter++
-	}
+		taxiCounter++;
+		
+	};
 
 	// get the number of passengers
 	function queueLength() {
@@ -37,29 +41,71 @@ let passengerCounter = 0;
 	}
 
 
+
 	// taxi leaves the queue
 	function taxiDepart(){
 		// the counter must always be 0 or more
 		if(taxiCounter > 0){
+
 			//  a taxi can leave only when there are 12 or more passengers in the queue
 			if(passengerCounter >= 12){
-				//remove one taxi
+				//subract one taxi
 				taxiCounter--
-				// remove 12 people from the queue
-				passengerCounter -= 12
+					// remove 12 people from the queue
+					passengerCounter -= 12
+				// add 1 to departedCounter 
+				departedCounter ++
+			
+			}else{
+				return "There must be atleast 12 passengers in the queue."
 			}
+		} else{
+			return "There are no taxis in the queue."
 		}
 	}
 
+	function taxisDeparted(){
+		return departedCounter
+	};
 
 
+
+    // Setter function for passenger queue length
+    function setPassengerQueueLength(newLength) {
+        if (newLength >= 0) {
+            passengerCounter = newLength;
+        } else {
+            throw new Error("Passenger queue length must be a non-negative number.");
+        }
+    }
+
+    // Setter function for taxi queue length
+    function setTaxiQueueLength(newLength) {
+        if (newLength >= 0) {
+            taxiCounter = newLength;
+        } else {
+            throw new Error("Taxi queue length must be a non-negative number.");
+        }
+    }
+
+	function setTaxiDepartedLength(newLength){
+		if (newLength >= 0) {
+            departedCounter = newLength;
+        } else {
+            throw new Error("Taxi queue length must be a non-negative number.");
+        }
+	}
 	return {
 		joinQueue,
 		leaveQueue,
 		joinTaxiQueue,
 		queueLength,
 		taxiQueueLength,
-		taxiDepart
+		taxiDepart,
+		taxisDeparted,
+		setPassengerQueueLength,
+		setTaxiQueueLength, 
+		setTaxiDepartedLength
 	}
 }
 

@@ -1,9 +1,11 @@
 import React from 'react'
 import PassengerCounter from './PassengerCounts'
 import TaxiCounter from './TaxiCounts'
+import { TaxiQueueProvider } from '../context/TaxiQueueContext'
 
 const App = ()=>{
     return(
+        <TaxiQueueProvider>
         <><h1>Taxi Queue App</h1>
         <div className="sections">
             <PassengerCounter />
@@ -19,6 +21,7 @@ const App = ()=>{
 			</li>
 		</ul>
         </>
+        </TaxiQueueProvider>
     )
 }
 
