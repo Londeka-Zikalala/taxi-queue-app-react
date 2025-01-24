@@ -40,7 +40,7 @@ To run this app locally, follow these steps:
 ```bash
 git clone https://github.com/Londeka-Zikalala/taxi-queue-app-react.git
 cd taxi-queue-app-react
-
+```
 3. Install dependencies:
    
 `npm install`
