@@ -1,7 +1,5 @@
-# Taxi queue app
-
-A local taxi association needs some help to manage queues at some of their taxi ranks.
-
+# Taxi Queue App
+A web widget designed to help local taxi associations manage queues at their taxi ranks. This app allows rank managers to keep track of:
 <span style="float: left">
 	<img src="queue.png" alt="" width="100" style="display:inline-block" >
 	<img src="queue.png" alt="" width="100" style="display:inline-block" >
@@ -11,53 +9,94 @@ A local taxi association needs some help to manage queues at some of their taxi 
 	<img src="minivan.png" alt="" width="100" style="display:inline-block">
 </span>
 
-They need a web widget which rank managers can use to keep track of how many people are joining and leaving taxi queues. They also want to keep track of how many taxis are queueing.
-
-## Instructions
-
-The widget should keep track off:
-
-* People joining the queue 
-	- add 1 to the queue
-* People leaving the queue 
-	- remove 1 from the queue
-* Taxis joining the queue 
-	- add 1 to the taxi queue
+* People in the queue: Adding or removing people as they join or leave.
+* Taxis in the queue: Tracking taxis joining and leaving the queue, ensuring proper management of passenger capacity.
 * Taxis leaving the queue:
 	- remove 1 from the taxi queue
 	- remove 12 people from the people queue
 * A taxi can only leave if there are enough people (12 people) in the queue to fill the taxi.
 
+## Features
 
-## Instructions
+* #### Queue Management:
+	* Increment/decrement the number of people and taxis in the queue.
+	* Ensure taxis can only leave if there are enough people (12 or more) to fill the taxi.
+	*Automatically adjust the people queue when a taxi leaves.
+* #### Persistent State:
+	* Data is stored in localStorage, ensuring the queue state persists after refreshing the page. 
 
-* Make all the unit tests pass in `taxi-queue.test.js`. Run the tests from `test/index.html`.
-* HTML & CSS for this widget in `index.html`
-* Some failing unit tests that you need to stop failing by implementing the TaxiQueue Factory Function in `taxi-queue.js`. Don't change the test file `test/taxi-queue.test.js`
-* A Factory function skeleton is in the `taxi-queue.js` file.
-* Implement the DOM functionality in the `taxi-queue.dom.js` file.
+## Technologies
 
-## Add localStorage
+* #### Frontend: Built using [Vite](https://vite.dev/guide/) and React.
+* #### State Management: React hooks for managing application state.
+* #### LocalStorage: For persistent data storage.
+* #### Testing: BDD Unit tests using Mocha with chai: 
 
+## Setup and Installation
+To run this app locally, follow these steps:
+
+1. Clone the repository:
+   
+```bash
+git clone https://github.com/Londeka-Zikalala/taxi-queue-app-react.git
+cd taxi-queue-app-react
+
+3. Install dependencies:
+   
+`npm install`
+
+4. Start the development server:
+
+`npm run dev` 
+
+5. Open your browser and navigate to the provided local development URL.
+
+6. See tests : `______/test/index.html`
+
+### How to Use
+
+1. Queue Management:
+
+Use the buttons to add or remove people and taxis from the respective queues.
+Taxis can only leave the queue if there are at least 12 people.
+
+2. Data Persistence:
+
+The app automatically saves the queue state to localStorage. Refresh the page, and the data will remain intact.
 Once your widget is done store all the queue counters in localStorage be sure that the data is shown correctly after a refresh.
-### Add a unit test for localStorage
-Add a unit test/s to show that your Factory Function's constructor can initialize the people and taxi queue count.
 
-## For & clone
+## Project Structure
+```markdown
+src/
+├── components/
+│   ├── PeopleQueue.js
+│   ├── TaxiQueue.js
+│   └── QueueControls.js
+├── utils/
+│   ├── localStorage.js
+│   └── taxiQueueFactory.js
+├── App.js
+├── index.js
+├── styles/
+│   └── main.css
+tests/
+├── taxiQueue.test.js
+├── localStorage.test.js
+public/
+├── index.html
 
-Fork and clone this repo.
 
-## Work submission
+## Deployment 
 
-Check your EMAIL for the links to submit your GitHub Pages URL and the URL to your GitHub repository on feedback.projectcodex.co.
-Loadshedding
+1. Build the production versionb
 
-If you are working remotely and you are experiencing load shedding please let us know in advance.
-Planning
+   `npm run build`
+   
+3. Deploy using your preferred hosting service
 
-Spend the first 30 minutes of your assessment on planning. Read through all the different scenarios & create a Kanban Board with the tasks you think you need to complete. Email a link to your Kanban board to mentors@projectcodex.co. Create pseudo code using code comments to help you think through what you need to do.
-Ask for help
 
-Ask if you need help or clarity
-	
-And make sure you submit your final links by latest **16h00**.
+## Acknowlegdment 
+
+This project was forked from :[Code X Academy Taxi Queue App](https://github.com/codex-academy/taxi-queue-app/)
+
+
